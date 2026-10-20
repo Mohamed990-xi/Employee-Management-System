@@ -1,0 +1,80 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Management</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <header>
+        <div class="logo">Employee<span>Hub</span></div>
+        <p>Management Dashboard</p>
+    </header>
+
+    <main class="container">
+
+        <div class="page-title">
+            <div>
+                <h1>Employees</h1>
+                <p class="subtitle">
+                    Manage your employee records
+                </p>
+            </div>
+
+            <a href="/add" class="btn btn-primary">
+                + Add Employee
+            </a>
+        </div>
+
+        <div class="table-card">
+            <div class="table-wrapper">
+                <table>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Department</th>
+                        <th>Actions</th>
+                    </tr>
+
+                    {% for employee in employees %}
+                    <tr>
+                        <td>{{ employee.id }}</td>
+                        <td>{{ employee.name }}</td>
+                        <td>{{ employee.email }}</td>
+                        <td>{{ employee.department }}</td>
+
+                        <td>
+                            <div class="actions">
+                                <a href="/edit/{{ employee.id }}"
+                                   class="btn btn-edit">
+                                    Edit
+                                </a>
+
+                                <form action="/delete/{{ employee.id }}"
+                                      method="POST"
+                                      onsubmit="return confirm('Delete this employee?');">
+
+                                    <button type="submit"
+                                            class="btn btn-delete">
+                                        Delete
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+
+                </table>
+            </div>
+        </div>
+
+    </main>
+
+</body>
+</html>
